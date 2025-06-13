@@ -1,7 +1,7 @@
 import numpy as np
 import pickle
 from flask import Flask, request, render_template
-
+import os
 app = Flask(__name__)
 
 # Load the trained model and scaler
@@ -61,4 +61,5 @@ def predict():
     return render_template('index.html', prediction_text=f"The predicted house price is: {predicted_price}")
 
 if __name__ == "__main__":
-    app.run(debug=True) # debug=True is good for development, set to False for production
+    port = int(os.environ.get('PORT', 10000))  # default to 10000 if PORT is not set
+    app.run(host='0.0.0.0', port=port)
